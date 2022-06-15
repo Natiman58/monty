@@ -1,14 +1,32 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include <ctype.h>
 
+/**
+ * struct var_s - contains the variables of the monty interpreter
+ * @queue: to detrmine if queue or stack mode
+ * @stack_len: determines the length of the stack
+ */
+typedef struct var_s
+{
+	int queue;
+	size_t stack_len;
+} var_t;
 
+#define STACK 0
+#define QUEUE 1
+
+
+/* declaring global struct to hold flag for queue and stack length */
+extern var_t var;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -21,9 +39,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 
@@ -38,17 +56,16 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 
-
-void push(stack_t **stack, unsigned int line_num);
-void pall(stack_t **stack, unsigned int line_num);
-void free_stack(stack_t **stack);
-void nop(stack_t **stack, unsigned int nline);
-int _isalpha(int c);
+void get_op(char *op, stack_t **stack, unsigned int line_number);
+void op_push(stack_t **stack, unsigned int line_number);
+void op_pall(stack_t **stack, unsigned int line_number);
+void op_free_stack(stack_t **stack);
+void op_nop(stack_t **stack, unsigned int line_number);
 
 
 #endif
