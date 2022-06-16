@@ -1,11 +1,13 @@
 #include "monty.h"
+#include <ctype.h>
 
 /**
- * check_if_digit - checks that a string only contains digits
- * @arg: the string
+ * check_for_digit - checks that a string only contains digits
+ * @arg: string to check
+ *
  * Return: 0 if only digits, else 1
  */
-static int check_if_digit(char *arg)
+static int check_for_digit(char *arg)
 {
 	int i;
 
@@ -19,23 +21,24 @@ static int check_if_digit(char *arg)
 	return (0);
 }
 
-
 /**
- * op_push - pushs an integer onto the stack
+ * m_push - push an integer onto the stack
  * @stack: double pointer to the beginning of the stack
- * @line_number: the place of the line to be pushed in
+ * @line_number: script line number
+ *
  * Return: void
  */
-void op_push(stack_t **stack, unsigned int line_number)
+void m_push(stack_t **stack, unsigned int line_number)
 {
 	char *arg;
 	int n;
 
 	arg = strtok(NULL, "\n\t\r ");
-
-	if (arg == NULL || check_if_digit(arg))
+	if (arg == NULL || check_for_digit(arg))
 	{
-		dprintf(STDOUT_FILENO, "L%u: usage: push integer\n", line_number);
+		dprintf(STDOUT_FILENO,
+			"L%u: usage: push integer\n",
+			line_number);
 		exit(EXIT_FAILURE);
 	}
 	n = atoi(arg);
