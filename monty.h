@@ -73,8 +73,8 @@ void m_mod(stack_t **stack, unsigned int line_number);
 void m_pchar(stack_t **stack, unsigned int line_number);
 void m_pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
-
-
+void m_stack(stack_t **stack, unsigned int line_number);
+void m_queue(stack_t **stack, unsigned int line_number);
 
 
 stack_t *add_node(stack_t **stack, const int n);
